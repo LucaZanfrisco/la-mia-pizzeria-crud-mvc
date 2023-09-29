@@ -1,0 +1,132 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+header {
+    height: 100%;
+}
+
+.nav {
+    width: 250px;
+    height: calc(100vh - 20px);
+    background: rgba(151, 243, 255, 0.2);
+    backdrop-filter: blur(6.6px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    border-radius: 25px;
+    -webkit-backdrop-filter: blur(6.6px);
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+    margin: 0px 20px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+    .link:hover {
+        box-shadow: inset 300px 0 0 0 #54b3d6;
+        color: white;
+        cursor: pointer;
+    }
+
+#logo {
+    border-radius: 50%;
+    width: 75%;
+}
+.fa-power-off:hover {
+    cursor: pointer;
+    color: red;
+}
+.fa-user:hover {
+    color: #54b3d6;
+    cursor: pointer;
+}
+
+.content {
+    border-radius: 25px;
+    height: 100vh;
+    padding: 15px 30px;
+    width: 100%;
+    position: relative;
+    overflow-y: hidden;
+}
+.elenco{
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100%;
+    padding-top: 25px;
+    padding-bottom: 150px;
+}
+.card{
+    text-decoration: none;
+    color: black;
+    position: relative;
+}
+    .card:hover {
+        box-shadow: 0px 0px 10px 2px black;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+.img-card{
+    border-radius: 5px 5px 0px 0px;
+}
+.aggiungi{
+    font-size: 30px;
+    background-color: blue;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 50%;
+}
+.aggiungi:hover{
+    cursor:pointer;
+    background-color: limegreen;
+    color: white;
+}
+#id-pizza{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 2;
+    color: white;
+    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bolder;
+}
+.infoCard {
+    background-color: rgba(151, 243, 255, 0.2);
+    box-shadow: 0px 0px 10px black;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+.back{
+    color: red;
+    font-weight: bolder;
+    font-size: 40px;
+    text-decoration: none;
+}

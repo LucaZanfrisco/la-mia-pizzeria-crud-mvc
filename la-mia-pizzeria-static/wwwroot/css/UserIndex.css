@@ -1,0 +1,63 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+body{
+    background-color: black;
+    color: white;
+}
+.link{
+    text-decoration: none;
+    color: white;
+}
+.link:hover{
+    color: goldenrod;
+    cursor: pointer;
+}
+#jumbo{
+    margin-top: 100px;
+}
+.myBtn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid darkgoldenrod;
+    text-decoration: none;
+    color: darkgoldenrod;
+}
+.myBtn:hover{
+    cursor: pointer;
+    color: white;
+}
+.secondary {
+    background-color: darkgoldenrod;
+    color: black;
+}
+.ordina{
+    background-color: white;
+    color: black;
+    border: none;
+}
+.ordina:hover{
+    color: darkgoldenrod;
+}
+
+#menu{
+    margin-top: 200px;
+}
+.vertical-arrow{
+    font-size: 60px;
+    transform: rotate(90deg);
+    color: darkgoldenrod;
+}
+
+.myCard {
+    background: linear-gradient( rgba(0,0,0,1) 0%, rgb(255,255,255,0.05) 80%);
+    padding-bottom: 20px;
+}
+#prezzo{
+    color: goldenrod;
+    font-size: 20px;
+    font-weight: bold;
+}
