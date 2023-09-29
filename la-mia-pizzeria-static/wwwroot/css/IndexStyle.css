@@ -81,6 +81,7 @@ header {
     }
 .img-card{
     border-radius: 5px 5px 0px 0px;
+    height: 200px;
 }
 .aggiungi{
     font-size: 30px;
@@ -129,4 +130,8 @@ header {
     font-weight: bolder;
     font-size: 40px;
     text-decoration: none;
+}
+.desc{
+    height: 3rem;
+    margin: 20px 7px;
 }

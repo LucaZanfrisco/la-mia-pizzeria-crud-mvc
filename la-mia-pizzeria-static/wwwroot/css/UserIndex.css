@@ -40,7 +40,8 @@ body{
     border: none;
 }
 .ordina:hover{
-    color: darkgoldenrod;
+    color: white;
+    background-color: goldenrod;
 }
 
 #menu{
@@ -60,4 +61,11 @@ body{
     color: goldenrod;
     font-size: 20px;
     font-weight: bold;
+}
+.img-card{
+    aspect-ratio: 4/3;
+}
+.desc{
+    height: 3rem;
+    margin: 15px 0;
 }

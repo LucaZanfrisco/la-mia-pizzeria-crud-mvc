@@ -6,7 +6,6 @@ namespace la_mia_pizzeria_static.Controllers
 {
     public class PizzaController : Controller
     {
-        [HttpGet]
         public IActionResult Index()
         {
             using(PizzeriaContext db = new PizzeriaContext())
@@ -28,6 +27,15 @@ namespace la_mia_pizzeria_static.Controllers
                     return RedirectToAction("Index");
                 }
                 return View("/Views/Home/Admin/Detail.cshtml", pizzaFounded);
+            }
+        }
+
+        public IActionResult UserIndex()
+        {
+            using(PizzeriaContext db =new PizzeriaContext())
+            {
+                List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
+                return View("/Views/Home/User/UserIndex.cshtml", pizzas);
             }
         }
     }

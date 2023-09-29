@@ -18,10 +18,10 @@
                         <div id="id-pizza">
                             @pizza.Id
                         </div>
-                        <img alt="Immagine pizza" src="~/img/margherita.jpg" class="img-fluid img-card" />
+                        <img alt="Immagine pizza" src="@pizza.Image" class="img-fluid img-card" />
                         <h3 class="my-2 fw-bold">@pizza.Name</h3>
-                        <p class="m-2">@pizza.Description</p>
-                        <q>@pizza.Price €</q>
+                        <p class="desc">@pizza.Description</p>
+                        <q class="my-2">@pizza.Price €</q>
                         <div class="d-flex justify-content-between align-items-center gap-2 mx-2 pb-3 mt-4">
                             <div class="w-50 btn btn-warning">Modifica</div>
                             <div class="w-50 btn btn-danger">Cancella</div>
