@@ -3,6 +3,10 @@
     ViewData["Title"] = "Dettaglio Prodotto";
 }
 @model Pizza
+@if(Model == null)
+{
+    @ViewBag["Message"];
+}
 <div class="container">
     <div class="d-flex my-5 gap-3 align-items-center justify-content-start">
         <a href="/" class=" back"> < </a>

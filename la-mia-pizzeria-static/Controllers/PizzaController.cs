@@ -12,7 +12,7 @@ namespace la_mia_pizzeria_static.Controllers
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
-                return View("~/Views/Home/Admin/Index.cshtml", pizzas);
+                return View("/Views/Home/Admin/Index.cshtml", pizzas);
             }
            
         }
@@ -22,7 +22,12 @@ namespace la_mia_pizzeria_static.Controllers
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 Pizza? pizzaFounded = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
-                return View("~/Views/Home/Admin/Detail.cshtml", pizzaFounded);
+                if(pizzaFounded == null)
+                {
+                    TempData["Message"] = "Nessuna Pizza trovata";
+                    return RedirectToAction("Index");
+                }
+                return View("/Views/Home/Admin/Detail.cshtml", pizzaFounded);
             }
         }
     }
