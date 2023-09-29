@@ -39,7 +39,9 @@ header {
         color: white;
         cursor: pointer;
     }
-
+.active {
+    box-shadow: inset 300px 0 0 0 #54b3d6;
+}
 #logo {
     border-radius: 50%;
     width: 75%;
