@@ -15,16 +15,12 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Admin/Index");
         }
 
         public IActionResult UserIndex()
         {
-            return View();
-        }
-        public IActionResult ProductDetail()
-        {
-            return View();
+            return View("User/UserIndex");
         }
 
         public IActionResult Privacy()

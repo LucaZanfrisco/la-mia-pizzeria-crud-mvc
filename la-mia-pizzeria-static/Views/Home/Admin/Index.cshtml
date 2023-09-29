@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "Admin/_Layout";
+    ViewData["Title"] = "Dashboard Pizzeria";
+}
+@model List<Pizza>
+
+<h1 class="fw-bold">Dashboard Pizzeria</h1>
+<div class="d-flex justify-content-between align-items-center mt-5 mb-1 ps-2 pe-4">
+    <h2>Elenco Pizze</h2>
+    <i class="fa-solid fa-plus aggiungi"></i>
+</div>
+<div class="container-fluid elenco">
+    <ul class="list-unstyled row mb-5 gy-2 row-cols-5">
+        @foreach(Pizza pizza in Model)
+        {
+            <li>
+                <a class="card text-center" href="@(Url.Action("Detail","Pizza", new { id = pizza.Id }))">
+                    <div id="id-pizza">
+                        @pizza.Id
+                    </div>
+                    <img alt="Immagine pizza" src="~/img/margherita.jpg" class="img-fluid img-card" />
+                    <h3 class="my-2 fw-bold">@pizza.Name</h3>
+                    <p class="m-2">@pizza.Description</p>
+                    <q>@pizza.Price €</q>
+                    <div class="d-flex justify-content-between align-items-center gap-2 mx-2 pb-3 mt-4">
+                        <div class="w-50 btn btn-warning">Modifica</div>
+                        <div class="w-50 btn btn-danger">Cancella</div>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+
