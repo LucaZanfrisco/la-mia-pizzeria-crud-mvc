@@ -46,11 +46,12 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Pizza pizza)
         {
             if(!ModelState.IsValid)
             {
-                return View("Create", pizza);
+                return View("/Views/Home/Admin/Create.cshtml", pizza);
             }
 
             using(PizzeriaContext db = new PizzeriaContext())

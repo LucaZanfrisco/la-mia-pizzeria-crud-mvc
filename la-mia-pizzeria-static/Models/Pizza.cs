@@ -6,12 +6,24 @@ namespace la_mia_pizzeria_static.Models
     {
         [Key]
         public int Id {  get; set; }
+
         [MaxLength(50)]
+        [Required(ErrorMessage = "Il nome della pizza è obbligatorio")]
+        [StringLength(50 , ErrorMessage = "Nome della pizza troppo lungo, massimo 50 caratterri")]
         public string Name { get; set; }
+
         [MaxLength(500)]
+        [Required(ErrorMessage = "La descrizione della pizza è obbligatoria")]
+        [StringLength(500, ErrorMessage = "Descrizione della pizza troppo lungo, massimo 500 caratterri")]
         public string Description { get; set; }
+
         [MaxLength(500)]
+        [Required(ErrorMessage = "L'immagine di copertina è obbligatoria")]
+        [StringLength(500, ErrorMessage = "Path dell'immagine della pizza troppo lungo, massimo 500 caratterri")]
         public string Image {  get; set; }
+
+        [Required(ErrorMessage = "Il prezzo della pizza è obbligatorio")]
+        [Range(1, 100, ErrorMessage = "Il prezzo della pizza deve essere compreso tra 1 e 100")]
         public double Price { get; set; }
 
         public Pizza() { }
