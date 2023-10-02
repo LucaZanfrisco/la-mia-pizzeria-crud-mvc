@@ -56,6 +56,7 @@ body{
 .myCard {
     background: linear-gradient( rgba(0,0,0,1) 0%, rgb(255,255,255,0.05) 80%);
     padding-bottom: 20px;
+    border-radius: 25px;
 }
 #prezzo{
     color: goldenrod;
@@ -63,7 +64,9 @@ body{
     font-weight: bold;
 }
 .img-card{
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
+    border-radius: 25px 25px 0 0;
+    overflow: hidden;
 }
 .desc{
     height: 3rem;
