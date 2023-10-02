@@ -4,16 +4,16 @@
 }
 @model List<Pizza>
 
-    <h1 class="fw-bold">Dashboard Pizzeria</h1>
-    <div class="d-flex justify-content-between align-items-center mt-5 mb-1 ps-2 pe-4">
-        <h2>Elenco Pizze</h2>
-        <i class="fa-solid fa-plus aggiungi"></i>
-    </div>
+<h1 class="fw-bold">Dashboard Pizzeria</h1>
+<div class="d-flex justify-content-between align-items-center mt-5 mb-1 ps-2 pe-4">
+    <h2>Elenco Pizze</h2>
+    <a class="text-decoration-none" href="@Url.Action("Create", "Pizza")"><i class="fa-solid fa-plus aggiungi"></i></a>
+</div>
 @if(Model.Count > 0)
 {
     <div class="container-fluid elenco">
         <ul class="list-unstyled row mb-5 gy-2 row-cols-5">
-            @foreach (Pizza pizza in Model)
+            @foreach(Pizza pizza in Model)
             {
                 <li>
                     <a class="card text-center" href="@(Url.Action("Detail","Pizza", new { id = pizza.Id }))">
@@ -33,7 +33,8 @@
             }
         </ul>
     </div>
-}else
+}
+else
 {
     <div class="alert alert-danger mt-4 text-center " role="alert">
         Nessuna pizza presente, inserire una nuova pizza attraverso il pulsante con il +!

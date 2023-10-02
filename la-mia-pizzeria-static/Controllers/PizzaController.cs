@@ -38,5 +38,11 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("/Views/Home/User/UserIndex.cshtml", pizzas);
             }
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View("/Views/Home/Admin/Create.cshtml");
+        }
     }
 }
