@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using la_mia_pizzeria_static.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace la_mia_pizzeria_static.Models
 {
@@ -15,6 +16,7 @@ namespace la_mia_pizzeria_static.Models
         [MaxLength(500)]
         [Required(ErrorMessage = "La descrizione della pizza è obbligatoria")]
         [StringLength(500, ErrorMessage = "Descrizione della pizza troppo lungo, massimo 500 caratterri")]
+        [DescriptionValidation]
         public string Description { get; set; }
 
         [MaxLength(500)]
