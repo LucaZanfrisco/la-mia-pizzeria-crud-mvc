@@ -26,10 +26,34 @@
                         <q class="my-2">@pizza.Price €</q>
                     </a>
                     <div class="d-flex justify-content-between align-items-center gap-2 mx-2 pb-3 mt-1">
-                        <a class="w-50 btn btn-warning text-decoration-none d-block" href="@Url.Action("Update", "Pizza", new { id = pizza.Id} )">Modifica</a>
-                        <a class="w-50 btn btn-danger">Cancella</a>
+                        <a class="w-50 btn btn-warning text-decoration-none d-block" href="@Url.Action("Update", "Pizza", new { id = pizza.Id} )"><i class="fa-solid fa-pen-to-square text-light fs-5"></i></a>
+                        <button type="button" class="w-50 btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-@(pizza.Id)">
+                            <i class="fa-solid fa-trash text-light fs-5"></i>
+                        </button>
                     </div>
+                    <hr>
                 </li>
+
+                <div class="modal fade" id="delete-@(pizza.Id)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma Eliminazione</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Conferma di voler cancellare la pizza @pizza.Id : @pizza.Name?
+                            </div>
+                            <div class="modal-footer">
+                                <form asp-action="Delete" asp-controller="Pizza" asp-route-id="@pizza.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                    <button type="submit" class="btn btn-danger">Cancella</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </ul>
     </div>

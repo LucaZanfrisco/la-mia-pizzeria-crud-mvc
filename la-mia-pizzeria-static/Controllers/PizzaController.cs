@@ -1,6 +1,7 @@
 ﻿using la_mia_pizzeria_static.Database;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace la_mia_pizzeria_static.Controllers
 {
@@ -106,6 +107,27 @@ namespace la_mia_pizzeria_static.Controllers
                 else
                 {
                     return RedirectToAction("Index");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            using(PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza? deletePizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if(deletePizza != null) 
+                {
+                    db.Pizzas.Remove(deletePizza);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
         }
