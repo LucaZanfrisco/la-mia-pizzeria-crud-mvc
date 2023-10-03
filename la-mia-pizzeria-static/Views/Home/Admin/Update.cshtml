@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "Admin/_Layout";
+}
+
+@model Pizza
+
+<div class="container" id="update">
+    <div class="row justify-content-start align-items-start mt-5">
+        <div class="col-6">
+            <h2 class="fw-bold text-danger">Aggiungi una nuova pizza</h2>
+            <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+                <div class="my-3">
+                    <label class="fs-4 fw-bold form-label">Immagine copertina</label>
+                    <input asp-for="Image" type="text" class="form-control" placeholder="Inserire path dell'immagine di copertina" id="imgPath" />
+                    <span asp-validation-for="Image" class="text-danger fw-bold"></span>
+                </div>
+                <div class="my-3">
+                    <label class="fs-4 fw-bold form-label">Nome</label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Inserire nome della pizza" id="nome" />
+                    <span asp-validation-for="Name" class="text-danger fw-bold"></span>
+                </div>
+                <div class="my-3">
+                    <label class="fs-4 fw-bold form-label">Ingredienti</label>
+                    <input asp-for="Description" type="text" class="form-control" placeholder="Inserire ingredienti della pizza" id="ingredienti" />
+                    <span asp-validation-for="Description" class="text-danger fw-bold"></span>
+                </div>
+                <div class="my-3">
+                    <label class="fs-4 fw-bold form-label">Prezzo</label>
+                    <input asp-for="Price" type="number" class="form-control" placeholder="Inserire prezzo della pizza" id="prezzo" step="any" />
+                    <span asp-validation-for="Price" class="text-danger fw-bold"></span>
+                </div>
+                <div class="my-3">
+                    <input type="submit" value="Crea nuova pizza" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <h2 class="fw-bold text-danger">Recap inserimento nuova pizza</h2>
+            <img id="imgPreview" class="img-fluid" />
+            <hr />
+            <div id="nomePizza">Nome della pizza</div>
+            <hr />
+            <div id="listaIngredienti">Ingredienti</div>
+            <hr />
+            <div id="prezzoFinale">Prezzo</div>
+        </div>
+    </div>
+</div>

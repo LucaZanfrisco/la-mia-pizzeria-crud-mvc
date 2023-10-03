@@ -62,5 +62,52 @@ namespace la_mia_pizzeria_static.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            using(PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza? pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                
+                if(pizza != null)
+                {
+                    return View("/Views/Home/Admin/Update.cshtml", pizza);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(int id, Pizza updatePizza) 
+        {
+            if(!ModelState.IsValid)
+            {
+                return View("/Views/Home/Admin/Update.cshtml", updatePizza);
+            }
+
+            using(PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza? pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if(pizza != null)
+                {
+                    pizza.Name = updatePizza.Name;
+                    pizza.Description = updatePizza.Description;
+                    pizza.Image = updatePizza.Image;
+                    pizza.Price = updatePizza.Price;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+        }
     }
 }
