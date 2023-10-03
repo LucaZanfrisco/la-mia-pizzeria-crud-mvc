@@ -1,4 +1,5 @@
 ﻿using la_mia_pizzeria_static.Database;
+using la_mia_pizzeria_static.Logger;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
@@ -7,8 +8,16 @@ namespace la_mia_pizzeria_static.Controllers
 {
     public class PizzaController : Controller
     {
+
+        private ICustomLogger _logger;
+
+        public PizzaController(ICustomLogger logger)
+        {
+            _logger = logger;
+        }
         public IActionResult Index()
         {
+            _logger.WriteLog("Entrato nella index degli admin");
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
@@ -19,6 +28,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Detail(int id)
         {
+            _logger.WriteLog($"Entrato nella pagina di dettaglii della pizza {id}");
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 Pizza? pizzaFounded = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
@@ -33,6 +43,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult UserIndex()
         {
+            _logger.WriteLog("Entrato nella pagina Utente");
             using(PizzeriaContext db =new PizzeriaContext())
             {
                 List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
@@ -43,6 +54,7 @@ namespace la_mia_pizzeria_static.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            _logger.WriteLog("Entrato nella creazione di una nuova pizza");
             return View("/Views/Home/Admin/Create.cshtml");
         }
 
@@ -67,6 +79,7 @@ namespace la_mia_pizzeria_static.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+            _logger.WriteLog($"Entrato nella pagina di modifica della pizza {id}");
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 Pizza? pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
@@ -114,6 +127,7 @@ namespace la_mia_pizzeria_static.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
+            _logger.WriteLog($"Cancellato la pizza {id}");
             using(PizzeriaContext db = new PizzeriaContext())
             {
                 Pizza? deletePizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();

@@ -4,8 +4,8 @@
         <img alt="Logo pizzeria" src="~/img/logo.png" id="logo" />
     </div>
     <ul class="list-unstyled mt-5">
-        <li><a class="fs-4 fw-bold my-4 d-block link @( (@Context.Request.Path == "/") ? "active" : "") " href="/">Home</a></li>
-        <li><a class="fs-4 fw-bold my-4 d-block link" href="@Url.Action("UserIndex", "Pizza")">Menu</a></li>
+        <li><a class="fs-4 fw-bold my-4 d-block link @( (@Context.Request.Path == "/") ? "active" : "") " href="/">Admin</a></li>
+        <li><a class="fs-4 fw-bold my-4 d-block link" href="@Url.Action("UserIndex", "Pizza")">User</a></li>
     </ul>
     <ul class="list-unstyled pb-5 mt-auto">
         <li><i class="my-3 fs-4 fa-solid fa-user"></i></li>
