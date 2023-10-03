@@ -10,17 +10,19 @@ namespace la_mia_pizzeria_static.Controllers
     {
 
         private ICustomLogger _logger;
+        private PizzeriaContext _db;
 
-        public PizzaController(ICustomLogger logger)
+        public PizzaController(ICustomLogger logger, PizzeriaContext db)
         {
             _logger = logger;
+            _db = db;
         }
         public IActionResult Index()
         {
             _logger.WriteLog("Entrato nella index degli admin");
-            using(PizzeriaContext db = new PizzeriaContext())
+            using(_db)
             {
-                List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
+                List<Pizza> pizzas = _db.Pizzas.ToList<Pizza>();
                 return View("/Views/Home/Admin/Index.cshtml", pizzas);
             }
            
@@ -29,9 +31,9 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Detail(int id)
         {
             _logger.WriteLog($"Entrato nella pagina di dettaglii della pizza {id}");
-            using(PizzeriaContext db = new PizzeriaContext())
+            using(_db)
             {
-                Pizza? pizzaFounded = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza? pizzaFounded = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
                 if(pizzaFounded == null)
                 {
                     TempData["Message"] = "Nessuna Pizza trovata";
@@ -44,9 +46,9 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult UserIndex()
         {
             _logger.WriteLog("Entrato nella pagina Utente");
-            using(PizzeriaContext db =new PizzeriaContext())
+            using(_db)
             {
-                List<Pizza> pizzas = db.Pizzas.ToList<Pizza>();
+                List<Pizza> pizzas = _db.Pizzas.ToList<Pizza>();
                 return View("/Views/Home/User/UserIndex.cshtml", pizzas);
             }
         }
@@ -67,10 +69,10 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("/Views/Home/Admin/Create.cshtml", pizza);
             }
 
-            using(PizzeriaContext db = new PizzeriaContext())
+            using( _db)
             {
-                db.Pizzas.Add(pizza);
-                db.SaveChanges();
+                _db.Pizzas.Add(pizza);
+                _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -80,9 +82,9 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Update(int id)
         {
             _logger.WriteLog($"Entrato nella pagina di modifica della pizza {id}");
-            using(PizzeriaContext db = new PizzeriaContext())
+            using(_db)
             {
-                Pizza? pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza? pizza = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
                 
                 if(pizza != null)
                 {
@@ -103,9 +105,9 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("/Views/Home/Admin/Update.cshtml", updatePizza);
             }
 
-            using(PizzeriaContext db = new PizzeriaContext())
+            using(_db)
             {
-                Pizza? pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza? pizza = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(pizza != null)
                 {
@@ -114,7 +116,7 @@ namespace la_mia_pizzeria_static.Controllers
                     pizza.Image = updatePizza.Image;
                     pizza.Price = updatePizza.Price;
 
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
@@ -128,14 +130,14 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Delete(int id)
         {
             _logger.WriteLog($"Cancellato la pizza {id}");
-            using(PizzeriaContext db = new PizzeriaContext())
+            using(_db)
             {
-                Pizza? deletePizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza? deletePizza = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(deletePizza != null) 
                 {
-                    db.Pizzas.Remove(deletePizza);
-                    db.SaveChanges();
+                    _db.Pizzas.Remove(deletePizza);
+                    _db.SaveChanges();
 
                     return RedirectToAction("Index");
                 }

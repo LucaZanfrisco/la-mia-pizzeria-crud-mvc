@@ -1,3 +1,4 @@
+using la_mia_pizzeria_static.Database;
 using la_mia_pizzeria_static.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICustomLogger, CustomFileLogger>();
+builder.Services.AddScoped<PizzeriaContext, PizzeriaContext>();
 
 var app = builder.Build();
 
