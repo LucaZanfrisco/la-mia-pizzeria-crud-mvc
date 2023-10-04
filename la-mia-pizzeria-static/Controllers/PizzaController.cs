@@ -2,6 +2,7 @@
 using la_mia_pizzeria_static.Logger;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace la_mia_pizzeria_static.Controllers
@@ -30,7 +31,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog($"Entrato nella pagina di dettaglii della pizza {id}");
 
-            Pizza? pizzaFounded = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            Pizza? pizzaFounded = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).FirstOrDefault();
             if(pizzaFounded == null)
             {
                 TempData["Message"] = "Nessuna Pizza trovata";
@@ -53,19 +54,23 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Create()
         {
             _logger.WriteLog("Entrato nella creazione di una nuova pizza");
-            return View("/Views/Home/Admin/Create.cshtml");
+            List<Category> categories = _db.Categories.ToList<Category>();
+            PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories};
+            return View("/Views/Home/Admin/Create.cshtml", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza pizza)
+        public IActionResult Create(PizzaFormModel data)
         {
             if(!ModelState.IsValid)
             {
-                return View("/Views/Home/Admin/Create.cshtml", pizza);
+                List<Category> categories = _db.Categories.ToList<Category>();
+                data.Categories = categories;
+                return View("/Views/Home/Admin/Create.cshtml", data);
             }
 
-            _db.Pizzas.Add(pizza);
+            _db.Pizzas.Add(data.Pizza);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
