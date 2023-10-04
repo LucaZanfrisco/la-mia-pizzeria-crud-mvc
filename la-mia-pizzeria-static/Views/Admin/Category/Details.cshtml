@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "Admin/_Layout";
+}
+
+@model Category
+
+<div class="container">
+    <div class="d-flex my-5 gap-3 align-items-center justify-content-start">
+        <a href="@Url.Action("Index", "Category")" class=" back"> < </a>
+        <h2 class="m-0">@Model.Name</h2>
+    </div>
+    @if(Model.pizzas.Count > 0)
+    {
+        <table class="table align-middle table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Immagine</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Prezzo</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Pizza pizzas in Model.pizzas)
+                {
+                    <tr>
+                        <th scope="col">@pizzas.Id</th>
+                        <td><img src="@pizzas.Image" class="img-fluid" width="100px" /></td>
+                        <td>@pizzas.Name</td>
+                        <td>@pizzas.Price €</td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">Non è presente nessuna pizza con questa categoria</div>
+    }
+
+</div>
+
+

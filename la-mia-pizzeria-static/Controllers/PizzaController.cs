@@ -23,7 +23,7 @@ namespace la_mia_pizzeria_static.Controllers
             _logger.WriteLog("Entrato nella index degli admin");
 
             List<Pizza> pizzas = _db.Pizzas.ToList();
-            return View("/Views/Home/Admin/Index.cshtml", pizzas);
+            return View("/Views/Admin/Pizza/Index.cshtml", pizzas);
 
         }
 
@@ -37,7 +37,7 @@ namespace la_mia_pizzeria_static.Controllers
                 TempData["Message"] = "Nessuna Pizza trovata";
                 return RedirectToAction("Index");
             }
-            return View("/Views/Home/Admin/Detail.cshtml", pizzaFounded);
+            return View("/Views/Admin/Pizza/Detail.cshtml", pizzaFounded);
 
         }
 
@@ -46,7 +46,7 @@ namespace la_mia_pizzeria_static.Controllers
             _logger.WriteLog("Entrato nella pagina Utente");
 
             List<Pizza> pizzas = _db.Pizzas.ToList();
-            return View("/Views/Home/User/UserIndex.cshtml", pizzas);
+            return View("/Views/User/UserIndex.cshtml", pizzas);
 
         }
 
@@ -56,7 +56,7 @@ namespace la_mia_pizzeria_static.Controllers
             _logger.WriteLog("Entrato nella creazione di una nuova pizza");
             List<Category> categories = _db.Categories.ToList();
             PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories};
-            return View("/Views/Home/Admin/Create.cshtml", model);
+            return View("/Views/Admin/Pizza/Create.cshtml", model);
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace la_mia_pizzeria_static.Controllers
             {
                 List<Category> categories = _db.Categories.ToList();
                 data.Categories = categories;
-                return View("/Views/Home/Admin/Create.cshtml", data);
+                return View("/Views/Admin/Pizza/Create.cshtml", data);
             }
 
             _db.Pizzas.Add(data.Pizza);
@@ -89,7 +89,7 @@ namespace la_mia_pizzeria_static.Controllers
                 List<Category> categories = _db.Categories.ToList();
                 PizzaFormModel model = new PizzaFormModel() { Pizza = pizza, Categories = categories};
 
-                return View("/Views/Home/Admin/Update.cshtml", model);
+                return View("/Views/Admin/Pizza/Update.cshtml", model);
             }
             else
             {
@@ -99,13 +99,14 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(int id, PizzaFormModel data)
         {
             if(!ModelState.IsValid)
             {
                 List<Category> categories = _db.Categories.ToList();
                 data.Categories = categories;
-                return View("/Views/Home/Admin/Update.cshtml", data);
+                return View("/Views/Admin/Pizza/Update.cshtml", data);
             }
 
 
