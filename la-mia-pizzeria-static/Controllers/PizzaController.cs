@@ -22,7 +22,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog("Entrato nella index degli admin");
 
-            List<Pizza> pizzas = _db.Pizzas.ToList<Pizza>();
+            List<Pizza> pizzas = _db.Pizzas.ToList();
             return View("/Views/Home/Admin/Index.cshtml", pizzas);
 
         }
@@ -45,7 +45,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog("Entrato nella pagina Utente");
 
-            List<Pizza> pizzas = _db.Pizzas.ToList<Pizza>();
+            List<Pizza> pizzas = _db.Pizzas.ToList();
             return View("/Views/Home/User/UserIndex.cshtml", pizzas);
 
         }
@@ -54,7 +54,7 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Create()
         {
             _logger.WriteLog("Entrato nella creazione di una nuova pizza");
-            List<Category> categories = _db.Categories.ToList<Category>();
+            List<Category> categories = _db.Categories.ToList();
             PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories};
             return View("/Views/Home/Admin/Create.cshtml", model);
         }
@@ -65,7 +65,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             if(!ModelState.IsValid)
             {
-                List<Category> categories = _db.Categories.ToList<Category>();
+                List<Category> categories = _db.Categories.ToList();
                 data.Categories = categories;
                 return View("/Views/Home/Admin/Create.cshtml", data);
             }
@@ -86,7 +86,10 @@ namespace la_mia_pizzeria_static.Controllers
 
             if(pizza != null)
             {
-                return View("/Views/Home/Admin/Update.cshtml", pizza);
+                List<Category> categories = _db.Categories.ToList();
+                PizzaFormModel model = new PizzaFormModel() { Pizza = pizza, Categories = categories};
+
+                return View("/Views/Home/Admin/Update.cshtml", model);
             }
             else
             {
@@ -96,11 +99,13 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(int id, Pizza updatePizza)
+        public IActionResult Update(int id, PizzaFormModel data)
         {
             if(!ModelState.IsValid)
             {
-                return View("/Views/Home/Admin/Update.cshtml", updatePizza);
+                List<Category> categories = _db.Categories.ToList();
+                data.Categories = categories;
+                return View("/Views/Home/Admin/Update.cshtml", data);
             }
 
 
@@ -108,10 +113,11 @@ namespace la_mia_pizzeria_static.Controllers
 
             if(pizza != null)
             {
-                pizza.Name = updatePizza.Name;
-                pizza.Description = updatePizza.Description;
-                pizza.Image = updatePizza.Image;
-                pizza.Price = updatePizza.Price;
+                pizza.Name = data.Pizza.Name;
+                pizza.Description = data.Pizza.Description;
+                pizza.Image = data.Pizza.Image;
+                pizza.Price = data.Pizza.Price;
+                pizza.CategoryId = data.Pizza.CategoryId;
 
                 _db.SaveChanges();
                 return RedirectToAction("Index");
