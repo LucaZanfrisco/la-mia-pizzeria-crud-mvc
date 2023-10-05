@@ -1,1 +1,86 @@
-﻿
+﻿.content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-left: 75px;
+    padding-top: 50px;
+}
+.elenco-pizze{
+    height: 100vh;
+    overflow-y: scroll;
+    padding-bottom: 150px;
+}
+.myCard{
+    border: 2px solid black;
+    border-radius: 25px;
+    height: 500px;
+    position: relative;
+    margin: 35px 0;
+}
+.Id{
+    font-size: 20px;
+    font-weight: bolder;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    transform: translate(50%,-50%);
+    z-index: 1;
+    width: 50%;
+    text-align: center
+}
+.numeroId{
+    color: orange;
+}
+.img-card{
+    aspect-ratio: 16/9;
+    padding: 10px;
+    border-radius: 25px;
+}
+.pizza-name{
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    letter-spacing: 5px;
+    padding: 0 15px;
+}
+.ingredient{
+    list-style: none;
+    text-align: center;
+    font-size: 1.2rem;
+    font-style: italic;
+    padding: 20px 0;
+}
+#btn-container{
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    z-index:1;
+}
+.myBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    font-size: 18px;
+}
+.myBtn:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    color: black;
+}
+.info:hover{
+    background-color: cornflowerblue;
+}
+.edit:hover{
+    background-color: orange;
+}
+.delete:hover{
+    background-color: red;
+}

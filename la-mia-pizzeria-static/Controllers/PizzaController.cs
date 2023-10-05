@@ -23,7 +23,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog("Entrato nella index degli admin");
 
-            List<Pizza> pizzas = _db.Pizzas.ToList();
+            List<Pizza> pizzas = _db.Pizzas.Include(pizza => pizza.Ingredients).Include(pizza => pizza.Category).ToList();
             return View("/Views/Admin/Pizza/Index.cshtml", pizzas);
 
         }

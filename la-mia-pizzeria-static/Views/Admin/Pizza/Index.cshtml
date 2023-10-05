@@ -4,35 +4,36 @@
 }
 @model List<Pizza>
 
-@* <div class="content">
-    <h1 class="fw-bold text-danger">Dashboard Pizzeria</h1>
-    <div class="d-flex justify-content-between align-items-center mt-5 mb-1 ps-2 pe-4">
-        <h2>Elenco Pizze</h2>
-        <a class="text-decoration-none" href="@Url.Action("Create", "Pizza")"><i class="fa-solid fa-plus aggiungi"></i></a>
-    </div>
+<div class="content">
+    <h1 class="fw-bold mb-5">Benvenuto, Nome utente Loggato</h1>
+
     @if(Model.Count > 0)
     {
-        <div class="container-fluid elenco">
-            <ul class="list-unstyled row row-cols-1 row-cols-md-2 mb-5 g-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
+        <div class="container-fluid">
+            <ul class="list-unstyled row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4  row-cols-xxl-5 gx-md-3 elenco-pizze pe-5">
                 @foreach(Pizza pizza in Model)
                 {
                     <li>
-                        <a class="card text-center" href="@(Url.Action("Detail","Pizza", new { id = pizza.Id }))">
-                            <div id="id-pizza">
-                                @pizza.Id
+                        <div class="myCard">
+                            <div class="Id">Pizza numero <span class="numeroId">@pizza.Id</span></div>
+                            <div>
+                                <img src="@pizza.Image" class="img-fluid mt-3 img-card" />
                             </div>
-                            <img alt="Immagine pizza" src="@pizza.Image" class="img-fluid img-card" />
-                            <h3 class="my-2 fw-bold">@pizza.Name</h3>
-                            <p class="desc">@pizza.Description</p>
-                            <q class="my-2">@pizza.Price €</q>
-                        </a>
-                        <div class="d-flex justify-content-center align-items-center gap-2 mx-4 pb-3 mt-1">
-                            <a class="w-50 btn btn-warning text-decoration-none d-block" href="@Url.Action("Update", "Pizza", new { id = pizza.Id} )"><i class="fa-solid fa-pen-to-square text-light fs-5"></i></a>
-                            <button type="button" class="w-50 btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-@(pizza.Id)">
-                                <i class="fa-solid fa-trash text-light fs-5"></i>
-                            </button>
+                            <div class="pizza-name">@pizza.Name</div>
+                            <div class="text-center fs-6">@(pizza.Category?.Name ?? "Nessuna Categoria")</div>
+                            <ul class="ingredient">
+                                @foreach(Ingredient ingredient in pizza.Ingredients)
+                                {
+                                    <li>@ingredient.Name</li>
+                                }
+                            </ul>
+                            <div class="text-center fs-4 fst-italic">@pizza.Price €</div>
+                            <div class="d-flex justify-content-center align-items-center gap-3" id="btn-container">
+                                <a class="myBtn info" href="@Url.Action("Detail", "Pizza", new { id = pizza.Id})"><i class="fa-solid fa-info"></i></a>
+                                <a class="myBtn edit" href="@Url.Action("Update","Pizza", new{id = pizza.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <button type="button"  class="myBtn delete" data-bs-toggle="modal" data-bs-target="#delete-@(pizza.Id)"><i class="fa-solid fa-trash"></i></button>
+                            </div>
                         </div>
-                        <hr>
                     </li>
 
                     <div class="modal fade" id="delete-@(pizza.Id)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,7 +66,7 @@
             Nessuna pizza presente, inserire una nuova pizza attraverso il pulsante con il +!
         </div>
     }
-</div> *@
+</div>
 
 
 
