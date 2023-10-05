@@ -5,7 +5,7 @@
 @model PizzaFormModel
 <div class="container">
     <div class="row justify-content-start align-items-start mt-5">
-        <div class="col-6">
+        <div class="col-6 vh-100 overflow-scroll pb-5">
             <h2 class="fw-bold text-danger">Aggiungi una nuova pizza</h2>
             <form asp-controller="Pizza" asp-action="Create" method="post" id="nuovaPizza">
                 @Html.AntiForgeryToken()
@@ -20,8 +20,8 @@
                     <span asp-validation-for="Pizza.Name" class="text-danger fw-bold"></span>
                 </div>
                 <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Ingredienti</label>
-                    <input asp-for="Pizza.Description" type="text" class="form-control" placeholder="Inserire ingredienti della pizza" id="ingredienti" />
+                    <label class="fs-4 fw-bold form-label">Descrizione</label>
+                    <input asp-for="Pizza.Description" type="text" class="form-control" placeholder="Inserire la descrizione della pizza" id="ingredienti" />
                     <span asp-validation-for="Pizza.Description" class="text-danger fw-bold"></span>
                 </div>
                 <div class="my-3">
@@ -44,6 +44,7 @@
                     <label class="form-label fs-4 fw-bold">Ingredienti</label>
                     <select multiple asp-for="SelectedIngredients" class="form-select" size="10" asp-items="@Model.Ingredients">
                     </select>
+                    <span asp-validation-for="Pizza.Ingredients" class="text-danger fw-bold"></span>
                 </div>
                 <div class="my-3">
                     <input type="submit" value="Crea nuova pizza" class="btn btn-success"/>

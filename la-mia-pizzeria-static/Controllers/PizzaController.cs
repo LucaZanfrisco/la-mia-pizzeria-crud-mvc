@@ -58,6 +58,7 @@ namespace la_mia_pizzeria_static.Controllers
             using(_db)
             {
                 List<Category> categories = _db.Categories.ToList();
+
                 PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories };
 
                 List<Ingredient> databaseIngredients = _db.Ingredients.ToList();
@@ -76,8 +77,8 @@ namespace la_mia_pizzeria_static.Controllers
 
                 return View("/Views/Admin/Pizza/Create.cshtml", model);
             }
-            
-            
+
+
         }
 
         [HttpPost]
@@ -86,16 +87,46 @@ namespace la_mia_pizzeria_static.Controllers
         {
             if(!ModelState.IsValid)
             {
-                List<Category> categories = _db.Categories.ToList();
-                data.Categories = categories;
-                return View("/Views/Admin/Pizza/Create.cshtml", data);
+                using(_db)
+                {
+                    List<Category> categories = _db.Categories.ToList();
+                    List<Ingredient> dbIngredients = _db.Ingredients.ToList();
+                    List<SelectListItem> listIngredients = new List<SelectListItem>();
+                    foreach(Ingredient ingredient in dbIngredients)
+                    {
+                        listIngredients.Add(new SelectListItem()
+                        {
+                            Text = ingredient.Name,
+                            Value = ingredient.Id.ToString(),
+                        });
+                    }
+                    data.Categories = categories;
+                    data.Ingredients = listIngredients;
+
+                    return View("/Views/Admin/Pizza/Create.cshtml", data);
+                }
+
             }
+            using(_db)
+            {
+               
+                if(data.SelectedIngredients != null)
+                {
+                    data.Pizza.Ingredients = new List<Ingredient>();
+                    foreach(string selectedIngredientString in data.SelectedIngredients)
+                    {
+                        int selectedIngredientId = int.Parse(selectedIngredientString);
+                        Ingredient ingredient = _db.Ingredients.Where(ingredient => ingredient.Id == selectedIngredientId).FirstOrDefault();
+                        data.Pizza.Ingredients.Add(ingredient);
+                    }
+                }
+                
+                
+                _db.Pizzas.Add(data.Pizza);
+                _db.SaveChanges();
 
-            _db.Pizzas.Add(data.Pizza);
-            _db.SaveChanges();
-
-            return RedirectToAction("Index");
-
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpGet]
@@ -103,14 +134,30 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog($"Entrato nella pagina di modifica della pizza {id}");
 
-            Pizza? pizza = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            Pizza? pizza = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredients).FirstOrDefault();
+
 
             if(pizza != null)
             {
                 List<Category> categories = _db.Categories.ToList();
-                PizzaFormModel model = new PizzaFormModel() { Pizza = pizza, Categories = categories};
+                PizzaFormModel pizzaModel = new PizzaFormModel() { Pizza = pizza, Categories = categories };
+                List<Ingredient> dbIngredients = _db.Ingredients.ToList();
+                List<SelectListItem> listIngredients = new List<SelectListItem>();
 
-                return View("/Views/Admin/Pizza/Update.cshtml", model);
+                foreach(Ingredient ingredient in dbIngredients)
+                {
+                    listIngredients.Add(new SelectListItem()
+                    {
+                        Text = ingredient.Name,
+                        Value = ingredient.Id.ToString(),
+                        Selected = pizza.Ingredients.Any(selected => selected.Id == ingredient.Id)
+                    });
+                }
+
+                pizzaModel.Ingredients = listIngredients;
+                
+
+                return View("/Views/Admin/Pizza/Update.cshtml", pizzaModel);
             }
             else
             {
