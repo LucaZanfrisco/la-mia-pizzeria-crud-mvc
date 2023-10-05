@@ -172,21 +172,51 @@ namespace la_mia_pizzeria_static.Controllers
         {
             if(!ModelState.IsValid)
             {
-                List<Category> categories = _db.Categories.ToList();
-                data.Categories = categories;
-                return View("/Views/Admin/Pizza/Update.cshtml", data);
+                using(_db)
+                {
+                    List<Category> categories = _db.Categories.ToList();
+                    data.Categories = categories;
+
+                    List<Ingredient> dbIngredients = _db.Ingredients.ToList();
+                    List<SelectListItem> listSelectIngredient = new List<SelectListItem>();
+                   foreach(Ingredient ingredient in dbIngredients)
+                    {
+                        listSelectIngredient.Add(new SelectListItem()
+                        {
+                            Text = ingredient.Name,
+                            Value = ingredient.Id.ToString(),
+                        });
+                    }
+
+                    data.Ingredients = listSelectIngredient;
+                    return View("/Views/Admin/Pizza/Update.cshtml", data);
+                }
+                
+               
             }
 
 
-            Pizza? pizza = _db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            Pizza? pizzaToUpdate = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredients).FirstOrDefault();
 
-            if(pizza != null)
+            if(pizzaToUpdate != null)
             {
-                pizza.Name = data.Pizza.Name;
-                pizza.Description = data.Pizza.Description;
-                pizza.Image = data.Pizza.Image;
-                pizza.Price = data.Pizza.Price;
-                pizza.CategoryId = data.Pizza.CategoryId;
+                pizzaToUpdate.Ingredients.Clear();
+                if(data.SelectedIngredients != null)
+                {
+                   foreach(string selectedIngredientString in data.SelectedIngredients)
+                    {
+                        int selectedIngredientId = int.Parse(selectedIngredientString);
+                        Ingredient newIngredient = _db.Ingredients.Where(ingredient => ingredient.Id == selectedIngredientId).FirstOrDefault();
+                        pizzaToUpdate.Ingredients.Add(newIngredient);
+                    }
+                   
+                }
+
+                pizzaToUpdate.Name = data.Pizza.Name;
+                pizzaToUpdate.Description = data.Pizza.Description;
+                pizzaToUpdate.Image = data.Pizza.Image;
+                pizzaToUpdate.Price = data.Pizza.Price;
+                pizzaToUpdate.CategoryId = data.Pizza.CategoryId;
 
                 _db.SaveChanges();
                 return RedirectToAction("Index");
