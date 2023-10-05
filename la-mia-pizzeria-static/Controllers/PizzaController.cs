@@ -32,7 +32,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             _logger.WriteLog($"Entrato nella pagina di dettaglii della pizza {id}");
 
-            Pizza? pizzaFounded = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).FirstOrDefault();
+            Pizza? pizzaFounded = _db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).FirstOrDefault();
             if(pizzaFounded == null)
             {
                 TempData["Message"] = "Nessuna Pizza trovata";

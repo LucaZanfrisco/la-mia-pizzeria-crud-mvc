@@ -1,15 +1,34 @@
-﻿
-<div class="nav">
-    <div class="pt-3">
-        <img alt="Logo pizzeria" src="~/img/logo.png" id="logo" />
-    </div>
-    <ul class="list-unstyled mt-5">
-        <li><a class="fs-4 fw-bold my-4 d-block link @( (@Context.Request.Path == "/") ? "active" : "") " href="/">Pizze</a></li>
-        <li><a class="fs-4 fw-bold my-4 d-block link @( (@Context.Request.Path == "/Category") ? "active" : "") " href="@Url.Action("Index", "Category")">Categorie</a></li>
-        <li><a class="fs-4 fw-bold my-4 d-block link" href="@Url.Action("UserIndex", "Pizza")">Al Sito</a></li>
-    </ul>
-    <ul class="list-unstyled pb-5 mt-auto">
-        <li><i class="my-3 fs-4 fa-solid fa-user"></i></li>
-        <li><i class="my-3 fs-4 fa-solid fa-power-off"></i></li>
-    </ul>
-</div>
+﻿<header>
+    <nav id="nav-bar">
+        <div>
+            <img src="~/img/logo-pizza.jpg" class="img-fluid" />
+        </div>
+        <ul class="list-unstyled" id="nav">
+            <li>
+                <a class="nav-link @((Context.Request.Path == "/") ? "active" : "")" href="@Url.Action("Index", "Pizza")">
+                    <i class="fa-solid fa-pizza-slice"></i>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link @((Context.Request.Path == "/Category") ? "active" : "")" href="@Url.Action("Index", "Category")">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="@Url.Action("UserIndex", "Pizza")">
+                    <i class="fa-solid fa-globe"></i>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

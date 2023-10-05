@@ -9,20 +9,33 @@
 }
 <div class="container">
     <div class="d-flex my-5 gap-3 align-items-center justify-content-start">
-        <a href="/" class=" back"> < </a>
-        <h2 class="m-0">@Model.Name</h2>
+        <a href="/" class="back"> < Elenco Pizze</a>
     </div>
     
-    <div class="row row-cols-2 justify-content-between align-items-center">
+    <div class="row row-cols-1 row-cols-lg-2 justify-content-center justify-content-lg-between flex-column flex-lg-row">
         <div>
-            <img src="@Model.Image" class="img-fluid" />
-            <div class="d-flex aling-items-center gap-5 mt-5 justify-content-between">
-                <div class="infoCard fs-3 fw-bold">Numeri ordini</div>
-                <div class="infoCard fs-3 fw-bold">@((Model.Category != null) ? Model.Category.Name : "Nessuna categoria")</div>
-                <div class="infoCard fs-3 fw-bold">@Model.Price €</div>
-            </div>
+            <img src="@Model.Image" class="img-fluid rounded-3" />
         </div>
-        <p class="text-center"><em>@Model.Description</em></p>
+        <div class="mt-4 mt-lg-0 d-flex flex-column justify-content-between align-items-center ">
+            <h1 class="fw-bold mb-3">@Model.Name</h1>
+            <hr class="w-50"/>
+            <p class="text-center"><em>@Model.Description</em></p>
+            <hr class="w-50"/>
+            <div class="fw-bold fs-5">Categoria: </div>
+            <div class="fst-italic">@(Model.Category?.Name ?? "Nessuna Categoria")</div>
+            <hr class="w-50"/>
+            <div class="fw-bold fs-5">Ingredienti</div>
+            <ul class="list-unstyled">
+                @foreach(Ingredient ingredient in Model.Ingredients)
+                {
+                   <li class="fst-italic">@ingredient.Name</li> 
+                }
+            </ul>
+            <hr class="w-50"/>
+            <div>@Model.Price €</div>
+
+        </div>
+        
     </div>
 
 </div>

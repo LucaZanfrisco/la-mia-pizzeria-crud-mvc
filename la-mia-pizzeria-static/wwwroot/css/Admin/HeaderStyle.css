@@ -1,0 +1,24 @@
+﻿#nav-bar{
+    width: 125px;
+    height: calc(100% - 25px);
+    border-right: 2px solid black;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#nav{
+    margin-top: 150px;
+}
+.nav-link{
+    font-size: 1.7rem;
+    color: black;
+}
+.nav-link:hover{
+    cursor: pointer;
+    color: gray;
+    transform: scale(1.1);
+}
+.active{
+    color: red;
+}
