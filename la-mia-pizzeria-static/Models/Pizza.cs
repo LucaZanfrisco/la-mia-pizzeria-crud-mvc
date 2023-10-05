@@ -28,8 +28,12 @@ namespace la_mia_pizzeria_static.Models
         [Range(1, 100, ErrorMessage = "Il prezzo della pizza deve essere compreso tra 1 e 100")]
         public double Price { get; set; }
 
+        // Collegamento della tabella categoria in relazione 1 a N
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
+
+        // Collegamento della tabella Ingredienti in relazione N a N
+        public List<Ingredient>? Ingredients { get; set; }
 
         public Pizza() { }
         public Pizza(string name, string description, double price,string image)

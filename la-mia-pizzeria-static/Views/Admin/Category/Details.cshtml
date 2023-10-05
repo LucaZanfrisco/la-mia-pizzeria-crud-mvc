@@ -7,11 +7,11 @@
 <div class="container">
     <div class="d-flex my-5 gap-3 align-items-center justify-content-start">
         <a href="@Url.Action("Index", "Category")" class=" back"> < </a>
-        <h2 class="m-0">@Model.Name</h2>
+        <h1 class="m-0 fw-bold">@Model.Name</h1>
     </div>
-    @if(Model.pizzas.Count > 0)
+    @if(Model.pizzas?.Count > 0)
     {
-        <table class="table align-middle table-hover">
+        <table class="table align-middle table-hover text-center">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -26,7 +26,7 @@
                 {
                     <tr>
                         <th scope="col">@pizzas.Id</th>
-                        <td><img src="@pizzas.Image" class="img-fluid" width="100px" /></td>
+                        <td><img src="@pizzas.Image" class="img-fluid rounded-2" width="125px"/></td>
                         <td>@pizzas.Name</td>
                         <td>@pizzas.Price €</td>
                         <td>

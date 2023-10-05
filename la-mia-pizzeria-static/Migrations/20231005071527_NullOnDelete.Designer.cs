@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using la_mia_pizzeria_static.Database;
 
@@ -11,9 +12,11 @@ using la_mia_pizzeria_static.Database;
 namespace la_mia_pizzeria_static.Migrations
 {
     [DbContext(typeof(PizzeriaContext))]
-    partial class PizzeriaContextModelSnapshot : ModelSnapshot
+    [Migration("20231005071527_NullOnDelete")]
+    partial class NullOnDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace la_mia_pizzeria_static.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("IngredientPizza", b =>
-                {
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PizzasId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientsId", "PizzasId");
-
-                    b.HasIndex("PizzasId");
-
-                    b.ToTable("IngredientPizza");
-                });
 
             modelBuilder.Entity("la_mia_pizzeria_static.Models.Category", b =>
                 {
@@ -53,24 +41,6 @@ namespace la_mia_pizzeria_static.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("la_mia_pizzeria_static.Models.Ingredient", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("la_mia_pizzeria_static.Models.Pizza", b =>
@@ -107,21 +77,6 @@ namespace la_mia_pizzeria_static.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Pizzas");
-                });
-
-            modelBuilder.Entity("IngredientPizza", b =>
-                {
-                    b.HasOne("la_mia_pizzeria_static.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("la_mia_pizzeria_static.Models.Pizza", null)
-                        .WithMany()
-                        .HasForeignKey("PizzasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("la_mia_pizzeria_static.Models.Pizza", b =>

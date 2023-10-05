@@ -18,7 +18,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             List<Category> categories = _db.Categories.Include(categories => categories.pizzas).ToList();
 
-            List<(Category category, int id)> data = categories.Select(x => (x, x.pizzas?.Count ?? 0 )).ToList();
+            List<(Category category, int id)> data = categories.Select(x => (x, x.pizzas?.Count ?? 0)).ToList();
 
             return View("/Views/Admin/Category/Index.cshtml", data);
         }
@@ -35,7 +35,7 @@ namespace la_mia_pizzeria_static.Controllers
                 }
                 return View("/Views/Admin/Category/Details.cshtml", category);
             }
-                
+
         }
 
         [HttpGet]
@@ -53,8 +53,8 @@ namespace la_mia_pizzeria_static.Controllers
                 return View("/Views/Admin/Category/Create", category);
             }
 
-            using(_db) 
-            { 
+            using(_db)
+            {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,7 +79,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id , Category category)
+        public IActionResult Update(int id, Category category)
         {
             if(!ModelState.IsValid)
             {
@@ -108,15 +108,15 @@ namespace la_mia_pizzeria_static.Controllers
         {
             using(_db)
             {
-                Category? category = _db.Categories.Find(id);
-                
+                Category? category = _db.Categories.Where(x => x.Id == id).Include(x => x.pizzas).FirstOrDefault();
+
                 if(category == null)
                 {
                     return RedirectToAction("Index");
                 }
 
                 _db.Categories.Remove(category);
-                _db.SaveChanges();  
+                _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
