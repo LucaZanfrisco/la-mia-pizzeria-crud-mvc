@@ -2,6 +2,7 @@
 using la_mia_pizzeria_static.Logger;
 using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
@@ -54,9 +55,29 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Create()
         {
             _logger.WriteLog("Entrato nella creazione di una nuova pizza");
-            List<Category> categories = _db.Categories.ToList();
-            PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories};
-            return View("/Views/Admin/Pizza/Create.cshtml", model);
+            using(_db)
+            {
+                List<Category> categories = _db.Categories.ToList();
+                PizzaFormModel model = new PizzaFormModel() { Pizza = new Pizza(), Categories = categories };
+
+                List<Ingredient> databaseIngredients = _db.Ingredients.ToList();
+                List<SelectListItem> listIngredients = new List<SelectListItem>();
+
+                foreach(Ingredient ingredient in databaseIngredients)
+                {
+                    listIngredients.Add(new SelectListItem()
+                    {
+                        Text = ingredient.Name,
+                        Value = ingredient.Id.ToString(),
+                    });
+                }
+
+                model.Ingredients = listIngredients;
+
+                return View("/Views/Admin/Pizza/Create.cshtml", model);
+            }
+            
+            
         }
 
         [HttpPost]
