@@ -27,7 +27,7 @@
                                     <li>@ingredient.Name</li>
                                 }
                             </ul>
-                            <div class="text-center fs-4 fst-italic">@pizza.Price €</div>
+                            <div class="text-center fs-4 fst-italic mb-5">@pizza.Price €</div>
                             <div class="d-flex justify-content-center align-items-center gap-3" id="btn-container">
                                 <a class="myBtn info" href="@Url.Action("Detail", "Pizza", new { id = pizza.Id})"><i class="fa-solid fa-info"></i></a>
                                 <a class="myBtn edit" href="@Url.Action("Update","Pizza", new{id = pizza.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
