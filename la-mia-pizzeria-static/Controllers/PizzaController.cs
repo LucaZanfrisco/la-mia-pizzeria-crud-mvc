@@ -1,13 +1,14 @@
 ﻿using la_mia_pizzeria_static.Database;
 using la_mia_pizzeria_static.Logger;
 using la_mia_pizzeria_static.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Authorize(Roles = "ADMIN,USER")]
     public class PizzaController : Controller
     {
 
@@ -19,6 +20,7 @@ namespace la_mia_pizzeria_static.Controllers
             _logger = logger;
             _db = db;
         }
+
         public IActionResult Index()
         {
             _logger.WriteLog("Entrato nella index degli admin");

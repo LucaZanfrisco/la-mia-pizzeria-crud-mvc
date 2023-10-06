@@ -2,10 +2,18 @@
     Layout = "Admin/_Layout";
     ViewData["Title"] = "Dashboard Pizzeria";
 }
+
 @model List<Pizza>
 
 <div class="content">
-    <h1 class="fw-bold mb-5">Benvenuto, Nome utente Loggato</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3 pe-5">
+        <h1 class="fw-bold">Benvenuto, @User.Identity.Name</h1>
+        @if(User.IsInRole("ADMIN"))
+        {
+            <a class="myBtn add me-4" asp-action="Create" asp-controller="Pizza"><i class="fa-solid fa-plus"></i></a>
+        }
+    </div>
+    
 
     @if(Model.Count > 0)
     {
@@ -30,8 +38,12 @@
                             <div class="text-center fs-4 fst-italic mb-5">@pizza.Price €</div>
                             <div class="d-flex justify-content-center align-items-center gap-3" id="btn-container">
                                 <a class="myBtn info" href="@Url.Action("Detail", "Pizza", new { id = pizza.Id})"><i class="fa-solid fa-info"></i></a>
-                                <a class="myBtn edit" href="@Url.Action("Update","Pizza", new{id = pizza.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <button type="button"  class="myBtn delete" data-bs-toggle="modal" data-bs-target="#delete-@(pizza.Id)"><i class="fa-solid fa-trash"></i></button>
+                                @if(User.IsInRole("ADMIN"))
+                                {
+                                    <a class="myBtn edit" href="@Url.Action("Update","Pizza", new{id = pizza.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button type="button" class="myBtn delete" data-bs-toggle="modal" data-bs-target="#delete-@(pizza.Id)"><i class="fa-solid fa-trash"></i></button>
+                                }
+                                
                             </div>
                         </div>
                     </li>

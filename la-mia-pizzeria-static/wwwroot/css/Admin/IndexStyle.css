@@ -5,18 +5,21 @@
     padding-left: 75px;
     padding-top: 50px;
 }
-.elenco-pizze{
+
+.elenco-pizze {
     height: 100vh;
     overflow-y: scroll;
     padding-bottom: 150px;
 }
-.myCard{
+
+.myCard {
     border: 2px solid black;
     border-radius: 25px;
     position: relative;
     margin: 35px 0;
 }
-.Id{
+
+.Id {
     font-size: 20px;
     font-weight: bolder;
     position: absolute;
@@ -28,36 +31,42 @@
     width: 50%;
     text-align: center
 }
-.numeroId{
+
+.numeroId {
     color: orange;
 }
-.img-card{
+
+.img-card {
     aspect-ratio: 16/9;
     padding: 10px;
     border-radius: 25px;
 }
-.pizza-name{
+
+.pizza-name {
     font-weight: bold;
     font-size: 1.5rem;
     text-align: center;
     letter-spacing: 5px;
     padding: 0 15px;
 }
-.ingredient{
+
+.ingredient {
     list-style: none;
     text-align: center;
     font-size: 1.2rem;
     font-style: italic;
     padding: 20px 0;
 }
-#btn-container{
+
+#btn-container {
     position: absolute;
     bottom: -25px;
     left: 0;
     right: 0;
-    z-index:1;
+    z-index: 1;
 }
-.myBtn{
+
+.myBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,17 +78,26 @@
     background-color: black;
     font-size: 18px;
 }
-.myBtn:hover{
-    cursor: pointer;
-    transform: scale(1.2);
-    color: black;
-}
-.info:hover{
+
+    .myBtn:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+        color: black;
+        border: 2px solid #878681;
+    }
+
+.info:hover {
     background-color: cornflowerblue;
 }
-.edit:hover{
+
+.edit:hover {
     background-color: orange;
 }
-.delete:hover{
+
+.delete:hover {
     background-color: red;
+}
+
+.add:hover {
+    background-color: green;
 }

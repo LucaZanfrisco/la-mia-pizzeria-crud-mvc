@@ -1,7 +1,14 @@
 using la_mia_pizzeria_static.Database;
 using la_mia_pizzeria_static.Logger;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<PizzeriaContext>();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<PizzeriaContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -23,10 +30,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Pizza}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
