@@ -3,8 +3,12 @@
 }
 @model Category
 
-<div class="container" >
-    <h1 class="mt-4 text-danger">Aggiungi una nuova categoria</h1>
+<div class="container content" >
+    <div class="d-flex align-items-center gap-4">
+        <a href="@Url.Action("Index", "Category")" class="myBtn back"><i class="fa-solid fa-arrow-left"></i></a>
+        <h1>Aggiungi una nuova categoria</h1>
+    </div>
+    
     <form class="mt-5" asp-action="Create" asp-controller="Category" method="post"> 
         @Html.AntiForgeryToken()
         <label class="form-label fs-4 fw-bold">Nome della categoria</label>

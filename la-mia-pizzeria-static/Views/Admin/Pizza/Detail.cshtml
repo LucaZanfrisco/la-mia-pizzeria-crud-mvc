@@ -9,7 +9,8 @@
 }
 <div class="container">
     <div class="d-flex my-5 gap-3 align-items-center justify-content-start">
-        <a href="/" class="back"> < Elenco Pizze</a>
+        <a class="myBtn back" asp-action="Index" asp-controller="Pizza"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="fs-4 fw-bold">Elenco delle pizze</div>
     </div>
     
     <div class="row row-cols-1 row-cols-lg-2 justify-content-center justify-content-lg-between flex-column flex-lg-row">
@@ -25,7 +26,7 @@
             <div class="fst-italic">@(Model.Category?.Name ?? "Nessuna Categoria")</div>
             <hr class="w-50"/>
             <div class="fw-bold fs-5">Ingredienti</div>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled d-flex flex-column align-items-center">
                 @foreach(Ingredient ingredient in Model.Ingredients)
                 {
                    <li class="fst-italic">@ingredient.Name</li> 

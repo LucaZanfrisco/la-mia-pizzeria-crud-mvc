@@ -36,3 +36,7 @@ main{
     cursor: pointer;
     color: black;
 }
+#update{
+    height: calc(100% - 200px);
+    overflow-y: scroll;
+}

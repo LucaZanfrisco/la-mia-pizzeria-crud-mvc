@@ -4,8 +4,12 @@
 
 @model Category
 
-<div class="container">
-    <h1 class="text-danger mt-4">Modifica la categoria: @Model.Name</h1>
+<div class="container content">
+    <div class="d-flex align-items-center gap-4">
+        <a href="@Url.Action("Index", "Category")" class="myBtn back"><i class="fa-solid fa-arrow-left"></i></a>
+        <h1>Modifica la categoria: @Model.Name</h1>
+    </div>
+    
     <form asp-action="Update" asp-controller="Category" asp-route-id="@Model.Id" method="post">
         @Html.AntiForgeryToken()
         <div class="my-3">
