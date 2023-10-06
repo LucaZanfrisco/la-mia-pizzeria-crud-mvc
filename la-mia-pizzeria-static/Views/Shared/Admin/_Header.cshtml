@@ -20,8 +20,7 @@
                 </a>
             </li>
             <li>
-                <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-user"></i></a>
-                
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user"></i></a>
             </li>
             <li>
                 <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Pizza", new { area = "" })">

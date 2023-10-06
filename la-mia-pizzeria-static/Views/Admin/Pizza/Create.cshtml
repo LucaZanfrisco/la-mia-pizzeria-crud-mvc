@@ -3,63 +3,53 @@
 }
 
 @model PizzaFormModel
-<div class="container">
-    <div class="row justify-content-start align-items-start mt-5">
-        <div class="col-6 vh-100 overflow-scroll pb-5">
-            <h2 class="fw-bold text-danger">Aggiungi una nuova pizza</h2>
-            <form asp-controller="Pizza" asp-action="Create" method="post" id="nuovaPizza">
-                @Html.AntiForgeryToken()
-                <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Immagine copertina</label>
-                    <input asp-for="Pizza.Image" type="text" class="form-control" placeholder="Inserire path dell'immagine di copertina" id="imgPath"/>
-                    <span asp-validation-for="Pizza.Image" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Nome</label>
-                    <input asp-for="Pizza.Name" type="text" class="form-control" placeholder="Inserire nome della pizza" id="nome" />
-                    <span asp-validation-for="Pizza.Name" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Descrizione</label>
-                    <input asp-for="Pizza.Description" type="text" class="form-control" placeholder="Inserire la descrizione della pizza" id="ingredienti" />
-                    <span asp-validation-for="Pizza.Description" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Prezzo</label>
-                    <input asp-for="Pizza.Price" type="number" class="form-control" placeholder="Inserire prezzo della pizza" id="prezzo" step="any" />
-                    <span asp-validation-for="Pizza.Price" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <label class="fs-4 fw-bold form-label">Categoria</label>
-                    <select asp-for="Pizza.CategoryId" class="form-select">
-                        <option value="">Seleziona la categoria della pizza..</option>
-                        @foreach(Category category in Model.Categories)
-                        {
-                            <option value="@category.Id">@category.Name</option>
-                        }
-                    </select>
-                   <span asp-validation-for="Pizza.CategoryId" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <label class="form-label fs-4 fw-bold">Ingredienti</label>
-                    <select multiple asp-for="SelectedIngredients" class="form-select" size="10" asp-items="@Model.Ingredients">
-                    </select>
-                    <span asp-validation-for="Pizza.Ingredients" class="text-danger fw-bold"></span>
-                </div>
-                <div class="my-3">
-                    <input type="submit" value="Crea nuova pizza" class="btn btn-success"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-6">
-            <h2 class="fw-bold text-danger">Recap inserimento nuova pizza</h2>
-            <img id="imgPreview" class="img-fluid"/> 
-            <hr />
-            <div id="nomePizza">Nome della pizza</div>
-            <hr />
-            <div id="listaIngredienti">Ingredienti</div>
-            <hr />
-            <div id="prezzoFinale">Prezzo</div>
-        </div>
+<div class="content pe-5">
+    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4 mb-4">
+        <a class="myBtn back" asp-action="Index" asp-controller="Pizza"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2 class="fw-bold fs-1">Aggiungi una nuova pizza</h2>
     </div>
+        <form asp-controller="Pizza" asp-action="Create" method="post" class="row row-cols-1 row-cols-lg-2 overflow-auto">
+            @Html.AntiForgeryToken()
+            <div class="my-3">
+                <label class="fs-4 fw-bold form-label">Immagine copertina</label>
+                <input asp-for="Pizza.Image" type="text" class="form-control" placeholder="Inserire path dell'immagine di copertina" id="imgPath" />
+                <span asp-validation-for="Pizza.Image" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <label class="fs-4 fw-bold form-label">Nome</label>
+                <input asp-for="Pizza.Name" type="text" class="form-control" placeholder="Inserire nome della pizza" id="nome" />
+                <span asp-validation-for="Pizza.Name" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <label class="fs-4 fw-bold form-label">Descrizione</label>
+                <input asp-for="Pizza.Description" type="text" class="form-control" placeholder="Inserire la descrizione della pizza" id="ingredienti" />
+                <span asp-validation-for="Pizza.Description" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <label class="fs-4 fw-bold form-label">Prezzo</label>
+                <input asp-for="Pizza.Price" type="number" class="form-control" placeholder="Inserire prezzo della pizza" id="prezzo" step="any" />
+                <span asp-validation-for="Pizza.Price" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <label class="fs-4 fw-bold form-label">Categoria</label>
+                <select asp-for="Pizza.CategoryId" class="form-select">
+                    <option value="">Seleziona la categoria della pizza..</option>
+                    @foreach(Category category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Pizza.CategoryId" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <label class="form-label fs-4 fw-bold">Ingredienti</label>
+                <select multiple asp-for="SelectedIngredients" class="form-select" size="10" asp-items="@Model.Ingredients">
+                </select>
+                <span asp-validation-for="Pizza.Ingredients" class="text-danger fw-bold"></span>
+            </div>
+            <div class="my-3">
+                <input type="submit" value="Crea nuova pizza" class="confirmBtn add" />
+            </div>
+        </form> 
 </div>
+
