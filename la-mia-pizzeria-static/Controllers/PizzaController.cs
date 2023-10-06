@@ -44,16 +44,8 @@ namespace la_mia_pizzeria_static.Controllers
 
         }
 
-        public IActionResult UserIndex()
-        {
-            _logger.WriteLog("Entrato nella pagina Utente");
-
-            List<Pizza> pizzas = _db.Pizzas.ToList();
-            return View("/Views/User/UserIndex.cshtml", pizzas);
-
-        }
-
         [HttpGet]
+        [Authorize(Roles ="ADMIN")]
         public IActionResult Create()
         {
             _logger.WriteLog("Entrato nella creazione di una nuova pizza");
@@ -84,6 +76,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="ADMIN")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PizzaFormModel data)
         {
@@ -132,6 +125,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="ADMIN")]
         public IActionResult Update(int id)
         {
             _logger.WriteLog($"Entrato nella pagina di modifica della pizza {id}");
@@ -169,6 +163,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="ADMIN")]
         [ValidateAntiForgeryToken]
         public IActionResult Update(int id, PizzaFormModel data)
         {
@@ -230,6 +225,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Delete(int id)
         {
             _logger.WriteLog($"Cancellato la pizza {id}");

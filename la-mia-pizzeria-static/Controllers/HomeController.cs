@@ -1,4 +1,5 @@
-﻿using la_mia_pizzeria_static.Models;
+﻿using la_mia_pizzeria_static.Database;
+using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,11 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Index()
         {
-            return View("Admin/Index");
+            using (PizzeriaContext db = new PizzeriaContext())
+            {
+                List<Pizza> pizzas = db.Pizzas.ToList();
+                return View("/Views/User/UserIndex.cshtml", pizzas);
+            }
         }
 
         public IActionResult Privacy()
